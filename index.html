@@ -21,6 +21,50 @@
 				var mobile_system = '';
 			}
 		</script>
+		<script>
+		function myMap() {
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {
+    center: new google.maps.LatLng(5.7597772, -0.2196606), 
+    zoom: 10
+		}	
+		var map = new google.maps.Map(mapCanvas, mapOptions);
+		}
+		
+		function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 5.7597772, lng: -0.2196606},
+          zoom: 100
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+		</script>
 
 		<script src="scripts/jquery.js"></script>
 		<!-- your scripts here -->
@@ -29,7 +73,9 @@
 		<title>Cordova</title>
 		<style>
 			#map{
-				height: 100%;
+				background-color: gray;
+				height: 500px;
+				width: 100%;
 			}
 		</style>
 	</head>
@@ -61,9 +107,9 @@
 				<button id="capturePhoto">camera</button>	<br />
                   <div><center><img class="lazy" style="display:none;width:100%;height:100%;" id="smallImage" src="" /></center></div>
 				  	<br />
-				<button id="showMap">map</button>
-				<div id="map">
-				</div>
+				<a href="#mapPage" data-transition="slide">
+				<button>map</button>
+				</a>
 					
 				  <!-- <video width="400" controls> -->
                       <!-- <source src="video.mp4" type="video/mp4"> -->
@@ -79,15 +125,28 @@
 				 
 			</div><!-- /content -->
 		</div><!-- /page -->
+		
+		<div data-role="page" id="mapPage" style="background: white">
+
+			<div data-role="header" style="text-shadow: none">
+				<h1>tutorial</h1>
+				<a href="index.html" data-role="button" data-icon="refresh" data-iconpos="notext" style="background: white;border: none;">Refresh</a>
+			</div><!-- /header -->
+			<img src="img/download.png" />
+			<div data-role="content" style="text-shadow: none">
+				<button id="showMap" onclick="myMap()">map</button>
+				<div id="map">
+				</div>
+			</div><!-- /content -->
+		</div><!-- /page -->
 
 	<!----------------------------->
 		
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 			<script type="text/javascript" src="cordova.js"></script>
 			<script type="text/javascript" src="scripts/platformOverrides.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr6kVcZzjqmLOVGc4n_XrOhIR8QXo4bdw"></script>
 			<script type="text/javascript" src="scripts/index.js"></script>
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr6kVcZzjqmLOVGc4n_XrOhIR8QXo4bdw&callback=initMap"></script>
-
-
+			
 	</body>
 </html>
