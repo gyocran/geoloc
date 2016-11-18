@@ -26,7 +26,12 @@
 		<!-- your scripts here -->
 		
 		<script src="scripts/jquery.mobile.js"></script>
-		<title>app</title>
+		<title>Cordova</title>
+		<style>
+			#map{
+				height: 100%;
+			}
+		</style>
 	</head>
 	<body>
 	   <div data-role="page" id="landingPage" style="background: white">
@@ -56,17 +61,21 @@
 				<button id="capturePhoto">camera</button>	<br />
                   <div><center><img class="lazy" style="display:none;width:100%;height:100%;" id="smallImage" src="" /></center></div>
 				  	<br />
-				  <video width="400" controls>
-                      <source src="video.mp4" type="video/mp4">
+				<button id="showMap">map</button>
+				<div id="map">
+				</div>
+					
+				  <!-- <video width="400" controls> -->
+                      <!-- <source src="video.mp4" type="video/mp4"> -->
                       
   
-                 </video>
-				 	<br />
-				 <audio controls>
+                 <!-- </video> -->
+				 	<!-- <br /> -->
+				 <!-- <audio controls> -->
                         
-                        <source src="audio.mp3" type="audio/mpeg">
+                        <!-- <source src="audio.mp3" type="audio/mpeg"> -->
 
-                  </audio>
+                  <!-- </audio> -->
 				 
 			</div><!-- /content -->
 		</div><!-- /page -->
@@ -77,6 +86,8 @@
 			<script type="text/javascript" src="cordova.js"></script>
 			<script type="text/javascript" src="scripts/platformOverrides.js"></script>
 			<script type="text/javascript" src="scripts/index.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr6kVcZzjqmLOVGc4n_XrOhIR8QXo4bdw&callback=initMap"></script>
+
 
 	</body>
 </html>
