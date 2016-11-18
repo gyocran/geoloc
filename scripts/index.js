@@ -29,6 +29,10 @@
 		document.getElementById("clearWatchbtn").addEventListener("click", function() {
 			navigator.geolocation.clearWatch(watchID);
 		});
+		
+		document.getElementById("barcodeReader").addEventListener("click", function() {
+			barcodeScanner();
+		});
 
 		document.getElementById("alertTest").onclick = function() {
 			alert("Alert works");
@@ -36,6 +40,36 @@
 
 	};
 
+	function barcodeScanner(){
+		cordova.plugins.barcodeScanner.scan(
+  function (result) {
+    if(!result.cancelled)
+    {
+      alert("Barcode type is: " + result.format);
+      alert("Decoded text is: " + result.text);
+    }
+    else
+    {
+      alert("You have cancelled scan");
+    }
+  },
+  function (error) {
+      alert("Scanning failed: " + error);
+  }
+);
+	}
+	
+	// function scanSuccess(result){
+		// alert("We got a barcode\n" +
+                // "Result: " + result.text + "\n" +
+                // "Format: " + result.format + "\n" +
+                // "Cancelled: " + result.cancelled);
+	// }
+	
+	// function scanFail(error){
+		// alert("Scanning failed: " + error);
+	// }
+	
 	function onPhotoDataSuccess(imageData) {
 
 		var smallImage = document.getElementById('smallImage');
